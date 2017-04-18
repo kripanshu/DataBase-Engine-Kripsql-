@@ -137,18 +137,18 @@ public class CommandParser {
 			return Nulls;
 		}
 			//Extract Table Name Which To Insert Into.
-		public static String parseInsertTableName(String x){
+		public static String parseInsertTableName(String val){
 			String TableName="";
-			String SubNoVal=x.substring(0,x.indexOf('('));
+			String SubNoVal=val.substring(0,val.indexOf('('));
 			String [] temp=SubNoVal.split("\\s+");
 			TableName=temp[2];
 			return TableName;
 		}
 
 		//Extract insert values
-		public static ArrayList<String> parseInsertValues(String x){
+		public static ArrayList<String> parseInsertValues(String val){
 			ArrayList<String> valueList=new ArrayList<>();
-			String values=x.substring(x.indexOf('(')+1,x.indexOf(')'));
+			String values=val.substring(val.indexOf('(')+1,val.indexOf(')'));
 			
 			String values1=values.replaceAll("\'", "");
 			String [] temp=values1.split(",");
@@ -158,70 +158,70 @@ public class CommandParser {
 		}
 		
 			//Extract Table Name for Select
-		public static String parseSelectTableName(String x){
-			String [] temp=x.split("\\s+");
+		public static String parseSelectTableName(String val){
+			String [] temp=val.split("\\s+");
 			return temp[3];
 		}
 		
 		//Extract column name
-		public static String parseSelectColumnName(String x){
-			String [] temp=x.split("\\s+");
+		public static String parseSelectColumnName(String val){
+			String [] temp=val.split("\\s+");
 			String columnName = temp[5].substring(0, parseSelectComparisonPosition1(temp[5]));
 			return columnName;
 		}
 		
 		//Extract compare
-		public static int parseSelectComparison(String x){
-			if(x.contains("="))
+		public static int parseSelectComparison(String val){
+			if(val.contains("="))
 				return 1;
-			else if(x.contains("<>"))
+			else if(val.contains("<>"))
 				return 2;
-			else if(x.contains("<") && !x.contains(">"))
+			else if(val.contains("<") && !val.contains(">"))
 				return 3;
-			else if(x.contains(">") && !x.contains("<"))
+			else if(val.contains(">") && !val.contains("<"))
 				return 4;
 			else 
 				return 0;
 		}
 		
 		//Extract compare value
-		public static String parseSelectValue(String x){
-			String sub=x.substring(parseSelectComparisonPosition(x)+1,x.length());
+		public static String parseSelectValue(String val){
+			String sub=val.substring(parseSelectComparisonPosition(val)+1,val.length());
 			String sub1=sub.replaceAll("'","");
 			String sub2=sub1.replaceAll("\\s+", "");
 			return sub2;
 		}
 		
 		//Extract Compare position
-		public static int parseSelectComparisonPosition(String x){
-			if(x.contains("="))
-				return x.indexOf('=');
-			else if(x.contains("<>"))
-				return x.indexOf('>');
-			else if(x.contains("<") && !x.contains(">"))
-				return x.indexOf('<');
-			else if(x.contains(">") && !x.contains("<"))
-				return x.indexOf('>');
+		public static int parseSelectComparisonPosition(String val){
+			if(val.contains("="))
+				return val.indexOf('=');
+			else if(val.contains("<>"))
+				return val.indexOf('>');
+			else if(val.contains("<") && !val.contains(">"))
+				return val.indexOf('<');
+			else if(val.contains(">") && !val.contains("<"))
+				return val.indexOf('>');
 			else 
-				return x.length();
+				return val.length();
 		}
 		
-		public static int parseSelectComparisonPosition1(String x){
-			if(x.contains("="))
-				return x.indexOf('=');
-			else if(x.contains("<>"))
-				return x.indexOf('<');
-			else if(x.contains("<") && !x.contains(">"))
-				return x.indexOf('<');
-			else if(x.contains(">") && !x.contains("<"))
-				return x.indexOf('>');
+		public static int parseSelectComparisonPosition1(String val){
+			if(val.contains("="))
+				return val.indexOf('=');
+			else if(val.contains("<>"))
+				return val.indexOf('<');
+			else if(val.contains("<") && !val.contains(">"))
+				return val.indexOf('<');
+			else if(val.contains(">") && !val.contains("<"))
+				return val.indexOf('>');
 			else 
-				return x.length();
+				return val.length();
 		}
 		
-	public static String parseDropTableName(String x){
-		String [] temp=x.split("\\s+");
-		return temp[2];
+	public static String parseDropTableName(String val){
+		String [] DropCommand=val.split("\\s+");
+		return DropCommand[2];
 	}
 		
 	
